@@ -6,5 +6,5 @@ ability points of the player
 
 ## TODO
 
-[] Create the models based on the notebooks
-[] Create an API for the models 
+- [ ] Create the models based on the notebooks
+- [ ] Create an API for the models 
