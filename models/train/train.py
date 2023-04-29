@@ -1,13 +1,12 @@
 import numpy as np
 import pandas as pd
-
+import pickle
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split, cross_val_score, RandomizedSearchCV
 from sklearn.feature_selection import  SelectKBest, f_regression
 from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.linear_model import SGDRegressor
-from sklearn.externals import joblib
 
 
 SEED=42
@@ -73,7 +72,7 @@ def param_search(model, param_dist, X_train, y_train):
     print(search.best_params_)
 
 def fetch_data():
-    dataset = read_file("../FM 2023.csv")
+    dataset = read_file("../../FM 2023.csv")
 
     dataset = clean_data(dataset, columns=["Rental club",
                                     "Age",
@@ -126,5 +125,10 @@ if __name__ == "__main__":
     mse = print_mse(y_test, y_pred)
     r2 = print_r2_score(y_test, y_pred)
     cross(sgd, X, y, cv=5)
-
-    joblib.dump(sgd, 'current_ability_regression_model.pkl')
+    
+    filename = 'current_ability_regression_model.pkl'
+    with open(filename, 'wb') as f:
+        pickle.dump(sgd, f)
+        print("Model Succssefully Saved As {}".format(filename))
+    
+    #pickle.dump(sgd, open('current_ability_regression_model.pkl', 'wb'))
